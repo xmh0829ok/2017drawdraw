@@ -45,8 +45,9 @@
             $type = "自定义"；
         }
         
-        $stmt = $DBH->prepare("INSERT into {$creator} (student, type, award) VALUES (?, ?, ?)");
-        $stmt->execute([$username, $type, $award]);
+        $if = "未发放";
+        $stmt = $DBH->prepare("INSERT into {$creator} (student, type, award, if_wx) VALUES (?, ?, ?)");
+        $stmt->execute([$username, $type, $award, $if]);
 
 
     } catch (PDOException $e) {

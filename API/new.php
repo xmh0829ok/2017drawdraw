@@ -38,8 +38,9 @@
             $sql = "CREATE TABLE ".$username." (
                 ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
                 student varchar(150),
-                type int,
-                award varchar(300)
+                type varchar(5),
+                award varchar(300),
+                if_wx varchar(5)
             )";
             $DBH->exec($sql);
             //插入操作
