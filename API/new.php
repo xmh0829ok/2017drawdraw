@@ -34,6 +34,12 @@
         $stmt->execute([$_SESSION['usrid']]);
 
         if ($stmt->rowCount() > 0){
+
+            $res = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($res['if_create']){
+                $sql = "drop TABLE ".$username;
+                $DBH->exec($sql);
+            }
             //建表操作
             $sql = "CREATE TABLE ".$username." (
                 ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -43,6 +49,11 @@
                 if_wx varchar(5)
             )";
             $DBH->exec($sql);
+
+            $if = 1;//修改if_create的值
+            $stmt = $DBH->prepare("UPDATE users(if_create)  VALUES (?) WHERE username = ? ;");
+            $stmt->execute([$if, $_SESSION['usrid']]);
+
             //插入操作
             $stmt = $DBH->prepare('INSERT INTO `award` (`username`, `type1`, `award1`, `type2`, `award2`, `type3`, `award3`, `type4`, `award4`, `type5`, `award5`, 
             	`type6`, `award6`, `type7`, `award7`, `type8`, `award8`, `type9`, `award9`, `type10`, `award10`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');

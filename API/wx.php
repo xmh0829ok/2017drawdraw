@@ -56,6 +56,11 @@
                 curl_close($curl);
 
             }
+
+            $if = "已发放";
+            $stmt2 = $DBH->prepare("UPDATE {$creator}(if_wx) VALUES(?) WHERE student = {$res['student']} ");//更改网薪状态
+            $stmt2->execute([$if]);
+
         }
 
     } catch (PDOException $e) {
