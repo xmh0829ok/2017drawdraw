@@ -58,8 +58,8 @@
             }
 
             $if = "已发放";
-            $stmt2 = $DBH->prepare("UPDATE {$creator}(if_wx) VALUES(?) WHERE student = {$res['student']} ");//更改网薪状态
-            $stmt2->execute([$if]);
+            $stmt2 = $DBH->prepare("UPDATE {$creator} set if_wx = ? WHERE student = ? ");//更改网薪状态
+            $stmt2->execute([$if, $res['student']]);
 
         }
 

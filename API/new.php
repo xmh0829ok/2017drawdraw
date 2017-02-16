@@ -51,7 +51,7 @@
             $DBH->exec($sql);
 
             $if = 1;//修改if_create的值
-            $stmt = $DBH->prepare("UPDATE users(if_create)  VALUES (?) WHERE username = ? ;");
+            $stmt = $DBH->prepare("UPDATE users set if_create = ? WHERE username = ? ;");
             $stmt->execute([$if, $_SESSION['usrid']]);
 
             //插入操作

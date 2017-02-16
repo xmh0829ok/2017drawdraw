@@ -32,8 +32,8 @@
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $dbh->beginTransaction();
 
-        $stmt = $DBH->prepare("SELECT (?, ?) from award WHERE username = {$creator}");
-        $stmt->execute([$this_type, $this_award]);//查询奖项
+        $stmt = $DBH->prepare("SELECT {$this_type}, {$this_award} from award WHERE username = ? ");
+        $stmt->execute([$creator]);//查询奖项
         $res = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $award = $res["$this_award"];
@@ -46,7 +46,7 @@
         }
         
         $if = "未发放";
-        $stmt = $DBH->prepare("INSERT into {$creator} (student, type, award, if_wx) VALUES (?, ?, ?)");
+        $stmt = $DBH->prepare("INSERT into {$creator} (student, type, award, if_wx) VALUES (?, ?, ?, ?)");
         $stmt->execute([$username, $type, $award, $if]);
 
 
