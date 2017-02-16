@@ -43,7 +43,8 @@
             )";
             $DBH->exec($sql);
             //插入操作
-            $stmt = $DBH->prepare('INSERT INTO `award` (`username`, `type1`, `award1`, `type2`, `award2`, `type3`, `award3`, `type4`, `award4`, `type5`, `award5`, `type6`, `award6`, `type7`, `award7`, `type8`, `award8`, `type9`, `award9`, `type10`, `award10`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);');
+            $stmt = $DBH->prepare('INSERT INTO `award` (`username`, `type1`, `award1`, `type2`, `award2`, `type3`, `award3`, `type4`, `award4`, `type5`, `award5`, 
+            	`type6`, `award6`, `type7`, `award7`, `type8`, `award8`, `type9`, `award9`, `type10`, `award10`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
             $stmt->execute([$username, $a['value'][0], $a['name'][0], $a['value'][1], $a['name'][1], $a['value'][2], $a['name'][2], $a['value'][3], $a['name'][3],
                 $a['value'][4], $a['name'][4],  $a['value'][5], $a['name'][5],  $a['value'][6], $a['name'][6],  $a['value'][7], $a['name'][7],
                 $a['value'][8], $a['name'][8],  $a['value'][9], $a['name'][9]]);
