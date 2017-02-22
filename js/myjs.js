@@ -59,7 +59,9 @@ $(document).ready(function(){
   			url:"",
   			asyn:false,
   			type:"POST",
-  			data:awarddetails,
+  			data:{
+          a:awarddetails
+        },
   			datatype:'json',
   			cache: false,
   			success: function() {
