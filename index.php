@@ -91,9 +91,9 @@
 			<a href="#" data-activates="nav-mobile" class="button-collapse"><img id="logo" src="img/menu.png"></a>
 			<a href="" class="brand-logo center">北邮易抽奖</a>
 			<ul id="nav-mobile" class="side-nav orange">
-				<li><a class="navfont white-text" href="">创建抽奖</a></li>
-				<li><a class="navfont white-text" href="">管理抽奖</a></li>
-				<li><a class="navfont white-text" href="">参加抽奖</a></li>
+				<li><a class="navfont white-text" href="create.php">创建抽奖</a></li>
+				<li><a class="navfont white-text" href="manage.php">管理抽奖</a></li>
+				<li><a class="navfont white-text" href="draw.php">参加抽奖</a></li>
 			</ul>
 		</div>
 	</nav>
