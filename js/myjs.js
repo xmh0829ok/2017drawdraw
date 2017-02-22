@@ -26,7 +26,7 @@ $(document).ready(function(){
   				awarddetails.value[j-1] = radio[0].value;
   				if (awarddetails.value[j-1]==1) {
   					var numtemp = document.getElementById("num"+j).value
-  					awarddetails.name[j-1] = "网薪"+numtemp; //“网薪X”直接代表X网薪，储存在awarddetails.name中，自定义奖品同
+  					awarddetails.name[j-1] = numtemp; //“X”直接代表X网薪，储存在awarddetails.name中，自定义奖品同
   					if(!numtemp) {
   						alert("选项"+j+"未填写网薪数量，请填充。");
   						flag = 1;
