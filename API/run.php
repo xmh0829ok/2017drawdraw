@@ -49,7 +49,8 @@
         $stmt = $DBH->prepare("INSERT into {$creator} (student, type, award, if_wx) VALUES (?, ?, ?, ?)");
         $stmt->execute([$username, $type, $award, $if]);
 
-
+        $dbh->commit();
+        
     } catch (PDOException $e) {
         print('{"result":"Database Error"}');
         die();

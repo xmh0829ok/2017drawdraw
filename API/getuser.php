@@ -23,7 +23,7 @@
     }
 
     if ($_SERVER['REQUEST_METHOD']=="GET") {
-        foreach($dbh->query("SELECT student, type, award, if_wx FROM {$creator} ", PDO::FETCH_NAMED) as $result) {
+        foreach($DBH->query("SELECT student, type, award, if_wx FROM {$creator} ", PDO::FETCH_NAMED) as $result) {
             print(json_encode($result, JSON_UNESCAPED_UNICODE));
         }
         die();

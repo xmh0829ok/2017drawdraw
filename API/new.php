@@ -66,6 +66,8 @@
         else 
             print('{"result":"No Authorization"}');
 
+        $dbh->commit();
+        
     } catch (PDOException $e) {
         print('{"result":"Database Error"}');
         die();

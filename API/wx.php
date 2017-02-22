@@ -25,8 +25,7 @@
 
     try {
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $dbh->beginTransaction();
-
+        
         $if = "未发放";
         $type = "网薪";
         $stmt = $DBH->prepare("SELECT student, award from {$creator} WHERE if_wx = ? AND type = ?");

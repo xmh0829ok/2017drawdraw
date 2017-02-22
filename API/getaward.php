@@ -23,7 +23,7 @@
     }
 
     if ($_SERVER['REQUEST_METHOD']=="GET") {
-        foreach($dbh->query("SELECT type1, award1, type2, award2, type3, award3, type4, award4, type5, award5, type6, award6, type7, award7, type8, award8, type9, award9, type10, award10 FROM award WHERE username = {$creator}", PDO::FETCH_NAMED) as $result) {
+        foreach($DBH->query("SELECT type1, award1, type2, award2, type3, award3, type4, award4, type5, award5, type6, award6, type7, award7, type8, award8, type9, award9, type10, award10 FROM award WHERE username = {$creator}", PDO::FETCH_NAMED) as $result) {
             print(json_encode($result, JSON_UNESCAPED_UNICODE));
         }
         die();
