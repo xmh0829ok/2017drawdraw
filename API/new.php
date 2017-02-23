@@ -24,22 +24,28 @@
     }
 
     //value值为1代表网薪，2代表自定义用品 ,name存放奖项内容
-    $a = $_POST['a'];
+    $name = $_POST['name'];
+    $value = $_POST['value'];
 
     try {
-        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $dbh->beginTransaction();
+        $DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $DBH->beginTransaction();
+
+        $stmt = $DBH->prepare("INSERT into hhh ( userid ) values(?);");
+        $stmt->execute([$_SESSION['usrid']]);
 
         $stmt = $DBH->prepare("SELECT * from users WHERE username = ? ;");
         $stmt->execute([$_SESSION['usrid']]);
 
         if ($stmt->rowCount() > 0){
 
-            $res = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($res['if_create']){
-                $sql = "drop TABLE ".$username;
-                $DBH->exec($sql);
+            while($res = $stmt->fetch(PDO::FETCH_ASSOC)){
+                if($res['if_create'] == 1){
+                    $sql = "drop TABLE ".$username;
+                    $DBH->exec($sql);
+                }
             }
+            
             //建表操作
             $sql = "CREATE TABLE ".$username." (
                 ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -57,16 +63,16 @@
             //插入操作
             $stmt = $DBH->prepare('INSERT INTO `award` (`username`, `type1`, `award1`, `type2`, `award2`, `type3`, `award3`, `type4`, `award4`, `type5`, `award5`, 
             	`type6`, `award6`, `type7`, `award7`, `type8`, `award8`, `type9`, `award9`, `type10`, `award10`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-            $stmt->execute([$username, $a['value'][0], $a['name'][0], $a['value'][1], $a['name'][1], $a['value'][2], $a['name'][2], $a['value'][3], $a['name'][3],
-                $a['value'][4], $a['name'][4],  $a['value'][5], $a['name'][5],  $a['value'][6], $a['name'][6],  $a['value'][7], $a['name'][7],
-                $a['value'][8], $a['name'][8],  $a['value'][9], $a['name'][9]]);
+            $stmt->execute([$username, $value[0], $name[0], $value[1], $name[1], $value[2], $name[2], $value[3], $name[3],
+                $value[4], $name[4],  $value[5], $name[5],  $value[6], $name[6], $value[7], $name[7],
+                $value[8], $name[8],  $value[9], $name[9]]);
             if ($stmt->rowCount() > 0)
                 print('{"result":"Insert Succeeded"}');
         }
         else 
             print('{"result":"No Authorization"}');
 
-        $dbh->commit();
+        $DBH->commit();
         
     } catch (PDOException $e) {
         print('{"result":"Database Error"}');
