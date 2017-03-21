@@ -31,8 +31,9 @@ nav .button-collapse {
 
 body .maincont {
 	margin-top: 4%;
-	padding-top: 4%;
-	height: 86%;
+	padding-top: 4%;/*去掉高度限制*/
+	padding-bottom: 15px;/*加入边宽*/
+	margin-bottom: 15px;/*留白*/
 }
 
 body .maincont2 {
@@ -64,7 +65,7 @@ body .maincont2 {
 }
 
 .functionbox {
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .mymodal {
@@ -105,4 +106,8 @@ body .maincont2 {
 	border-bottom-style: solid;
 	border-color: #F5F5F5;
 	margin-left: 10px;
+}
+
+.row .input-field {
+	margin-top: -1rem;
 }

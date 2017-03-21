@@ -1,0 +1,365 @@
+body {
+	background: rgb(243,241,218);
+	height: 800px;
+	width: 100%;
+	text-align: center;
+	font-family: 微软雅黑;
+}
+
+#bgPic {
+	z-index: 99;
+	position: absolute;
+	top: 2%;
+	left: 50%;
+	margin-left: -165.9px;
+	height: 590px;
+  margin-top: -30px; 
+}
+
+#machine {
+	z-index: 100;
+	position: absolute;
+	top: 120px;
+	left: 50%;
+	margin-left: -126.72px;
+	height: 270px;
+
+}
+/*
+.redBox { /*遮盖原按钮
+	background: rgb(178,47,47);
+
+	position: absolute;
+	left: 37%;
+	z-index: 3;
+
+	top: 1500px;
+}*/
+
+.deepredBox { /*遮盖原摇奖框*/
+	background: rgb(152,34,34);
+
+	position: absolute;
+	top: 340px;
+	left: 32%;
+	z-index: 3
+}
+
+.drawWindow {
+	background: rgb(243,241,218);
+
+}
+
+#arrowRight {
+	position: absolute;
+	top: 308px;
+	margin-left: 48px; 
+	z-index: 101;
+
+	height: 40px;
+
+	animation: arrowMoveRight 1.5s ease 0ms infinite normal forwards;
+  -webkit-animation: arrowMoveRight 1.5s ease 0ms infinite normal forwards;
+}
+
+#arrowLeft {
+	transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+
+	position: absolute;
+	top: 308px;
+	left: 50%;
+	margin-left: -137.5px;
+	z-index: 101;
+
+	height: 40px;
+
+	animation: arrowMoveLeft 1.5s ease 0ms infinite normal forwards;
+  -webkit-animation: arrowMoveLeft 1.5s ease 0ms infinite normal forwards;
+}
+
+@keyframes arrowMoveLeft {
+	0% {
+		margin-left: -137.5px;
+	}
+
+	45% {
+		margin-left: -157.5px;
+	}
+
+	90% {
+		margin-left: -137.5px;
+	}
+}
+
+@keyframes arrowMoveRight {
+	0% {
+		margin-left: 48px;
+	}
+
+	45% {
+		margin-left: 68px;
+	}
+
+	90% {
+		margin-left: 48px;
+	}
+}
+
+#buttonX {
+	position: absolute;
+	z-index: 101;
+	top: 312px;
+	left: 50%;
+	margin-left: -44.25px;
+
+	height: 35px;
+
+	animation: buttonShine 1.5s linear 0ms infinite normal forwards;
+  -webkit-animation: buttonShine 1.5s linear 0ms infinite normal forwards;
+}
+
+@keyframes buttonShine {
+	0% {
+		opacity: 1;
+	}
+
+	90% {
+		opacity: 0;
+		transform: scaleX(1.3) scaleY(1.3);
+    -moz-transform: scaleX(1.3) scaleY(1.3);
+    -webkit-transform: scaleX(1.3) scaleY(1.3);
+	}
+
+	91% {
+		opacity: 0;
+		transform: scaleX(1) scaleY(1);
+    -moz-transform: scaleX(1) scaleY(1);
+    -webkit-transform: scaleX(1) scaleY(1);
+	}
+
+}
+
+.drawBar {
+	position: absolute;
+	top: 0px;
+	left: 50%;
+
+	margin-left: -66px;
+	background-color: #fff;
+	width: 132px;
+	height: 1300px;
+	z-index: 99;
+
+}
+
+.award {
+	height: 65px;
+	text-align: center;
+	background: rgb(243,241,218);
+	border-bottom-style: solid;
+	border-bottom-color: rgb(152, 34, 34);
+	border-bottom-width: 2px;
+}
+
+.award p {
+	color: rgb(152,34,34);
+	margin:0px;
+	padding-top: .9rem;
+	font-size: 1.8rem;
+}
+
+.visibleWindow {
+	position: absolute;
+	overflow: hidden;
+	top: 210px;
+	left: 50%;
+	z-index: 102;
+
+	margin-left: -66px;
+	width: 132px;
+	height: 65px;
+}
+
+.redCover {
+	position: absolute;
+	top: 202px;
+	left: 50%;
+	z-index: 101;
+
+	background-color: rgb(152, 34, 34);
+	margin-left: -77px;
+	width: 155px;
+	height: 82px;
+}
+
+.myModal { /*遮罩层*/
+  width:100%;
+  height:800px;
+  background-color:rgba(0,0,0,.7);
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:200;
+/*  opacity:0.7;
+  filter: alpha(opacity=70);*/
+  display: none;
+}
+
+.myConfirm { /*抽奖前进行确认的遮罩层*/
+	position: absolute;
+	top: 150px;
+	left: 50%;
+	display: none;
+
+	height: 150px;
+	width: 300px;
+	margin-left: -150px;
+	background-color: rgb(243,241,218);
+	border-radius:10px;
+
+	padding: 20px 20px;
+	text-align: center;
+}
+
+.confirmButton, .cancelButton {
+	height: 30px;
+	width: 60px;
+	background: rgb(178, 47, 47);
+	color: rgb(243,241,218);
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	border-color: #fff;
+	border-style: none;
+}
+
+.confirmButton:focus, .cancelButton:focus {
+	background-color: rgb(152, 34, 34);
+}
+
+.confirmButton {
+	margin-right: 5px;
+}
+
+.cancelButton {
+	margin-left: 5px;
+}
+
+.introHead {
+	position: absolute;
+	top: 436px;
+	left: 50%;
+
+	color: rgb(178, 47, 47);
+	margin-left: -84px;
+	font-size: 3rem;
+	font-weight: bolder;
+	display: block;
+	text-align: center;
+}
+
+.intro {
+	position: absolute;
+	top: 505px;
+	left: 10%;
+
+	width: 80%;
+	height: 200px;
+	border-style: dashed;
+	border-width: 5px;
+	border-radius: 16px;
+	border-color: rgb(178, 47, 47);
+	-webkit-border-radius: 16px;
+	
+	padding: 10px 15px;
+	color: rgb(178, 47, 47);
+	font-size: 1.2rem;
+}
+
+.myAlert { /*抽奖后提示奖品的遮罩层*/
+	position: absolute;
+	top: 150px;
+	left: 50%;
+	display: none;
+
+	height: 140px;
+	width: 300px;
+	margin-left: -150px;
+	background-color: rgb(243,241,218);
+	border-radius:10px;
+
+	padding: 20px 20px;
+	text-align: center;
+}
+
+#confirmForAlert {
+	margin-top: 15px;
+}
+
+#checkOut {
+	position: absolute;
+	top: 8%;
+	right: 95px;
+	width: 85px;
+	height: 35px;
+}
+
+#return {
+	position: absolute;
+	top: 8%;
+	right: 30px;
+	height: 35px;
+}
+
+#headBox {
+	padding-top: 200px;
+
+	text-align: center;
+	height: 100%;
+	/*background-color: rgba(81, 81, 81,.85);*/
+}
+
+.headFont {
+	color: rgb(178, 47, 47);
+	font-weight: bold;
+	font-size: 3rem;
+}
+
+.welcomeWord {
+	margin:0;
+	font-size: 3rem;
+}
+
+#welcome {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.checkContainer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+
+	height: 100%;
+	width: 100%;
+}
+
+.checkBox{
+	height: 150px;
+	width: 86%;
+
+	margin:10px auto;
+	border-style: dashed;
+	border-width: 5px;
+	border-radius: 16px;
+	border-color: rgb(178, 47, 47);
+	-webkit-border-radius: 16px;
+
+	padding: 10px 15px;
+	color: rgb(178, 47, 47);
+	font-size: 1.2rem;
+}
