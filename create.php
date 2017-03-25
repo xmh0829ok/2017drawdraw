@@ -6,7 +6,18 @@ require("classes/yb-globals.inc.php");
     if(!isset($_SESSION['token'])){
         exit('illegal access!');
      }
-	 
+	 	$curl = curl_init();
+    //设置抓取的url
+    curl_setopt($curl, CURLOPT_URL, 'https://openapi.yiban.cn/user/me?access_token='.$_SESSION['token']);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //不验证证书
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $data = curl_exec($curl);
+    curl_close($curl);
+    $res = json_decode($data,true);
+	
+		$wx = $res['info']['yb_money'];  //我的当前网薪，调用接口来获取.
+
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +45,9 @@ require("classes/yb-globals.inc.php");
 		</div>
 	</nav>
 	<div class="container z-depth-1 maincont2">
+		<div class="wx">
+			我的当前网薪：<?php echo $wx; ?>;
+		</div>
 		<div class="optionbox">
 			<div class="col s10">
 				<p>设置奖项1</p>
@@ -224,7 +238,7 @@ require("classes/yb-globals.inc.php");
 	          <input placeholder="自定义奖品" id="designaward9" type="text" class="validate">
 	       		</div>
        		</div>
-		    </form>
+		 		</form>
 		    <p>设置奖项10</p>
 		    <form action="#">
 		    	<p>
@@ -244,7 +258,20 @@ require("classes/yb-globals.inc.php");
 			    	<div class="input-field col s8">
 	          <input placeholder="自定义奖品" id="designaward10" type="text" class="validate">
        		</div>
+       		<input placeholder="输入抽奖名称" id="lotteryName" type="text" class="validate">
        		</div>
+		    </form>
+		    <form action="#">
+		    	<div class="input-field col s12">
+		    		<div class="row">
+					    <select multiple>
+					      <option value="1">选项 1</option>
+					      <option value="2">选项 2</option>
+					      <option value="3">选项 3</option>
+   						</select>
+	   				 	<label>Materialize 下拉列表</label>
+	   				</div>
+  				</div>
 		    </form>
 		    <a class="waves-effect waves-light btn orange darken-1" id="makedraw">创建抽奖</a>
 		  </div>

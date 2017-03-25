@@ -1,18 +1,8 @@
-(function($){
-  $(function(){
 
-    $('.button-collapse').sideNav();
-    $()
-  }); 
-
-
-})(jQuery); 
-
-$(function(){
-	$('')
-})
 
 $(document).ready(function(){
+  $('select').material_select();
+  $('.button-collapse').sideNav();
   $('#makedraw').click(function(){//创建抽奖函数
   	var awarddetails = {};//awarddetails的name和value两个数组将分别储存10个奖项的内容和类型
   	awarddetails.name = [];

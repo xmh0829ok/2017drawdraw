@@ -266,12 +266,12 @@ body {
 	left: 10%;
 
 	width: 80%;
-	height: 200px;
 	border-style: dashed;
 	border-width: 5px;
 	border-radius: 16px;
 	border-color: rgb(178, 47, 47);
 	-webkit-border-radius: 16px;
+	margin-bottom: 10px;
 	
 	padding: 10px 15px;
 	color: rgb(178, 47, 47);
@@ -349,6 +349,7 @@ body {
 }
 
 .checkBox{
+	display: inline-block;
 	height: 150px;
 	width: 86%;
 
@@ -362,4 +363,8 @@ body {
 	padding: 10px 15px;
 	color: rgb(178, 47, 47);
 	font-size: 1.2rem;
+}
+
+.checkBox p {
+	margin: 5px auto;
 }
