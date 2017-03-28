@@ -17,36 +17,26 @@ $(document).ready(function(){
 
 })
 
+//检查是否有创建权限，若有则创建一个按钮
 function checkIfCreator() {
-	/*
 	$.ajax({ 
-  			url:"API/checkcreate.php",
-  			asyn:false,
-  			type:"GET",
-  			datatype:'json',
-  			cache: false,
-  			success: function(result) {
-	  			if (result==1) {
-						$(".checkContainer").prepend("<button class="confirmButton" style="width:100px;margin-top:20px" href = "create.php">管理抽奖
-						</button>")
-	  			};
-	  			};
-  			}
+  	url:"API/checkcreate.php",
+  	asyn:false,
+  	type:"GET",
+  	datatype:'json',
+  	cache: false,
+  	success: function(result) {
+  	//	var obj = JSON.parse(result);
+	  	if (result.result==1) {
+				$(".checkContainer").prepend("<button class='confirmButton' style='width:100px;margin-top:20px' href = 'manage.php'>管理抽奖</button>");
+	  	}
+  	}
   })
-*/
-  var tempHref = "create.php";
-  var className = "confirmButton";
-	var result = 1;
-	if (result) {
-		$(".checkContainer").prepend("<button class="+className+" href = "+tempHref+" style=width:100px;margin-top:20px;>管理抽奖</button>")
-	};
 }
 
+//获得当前所有被创建的抽奖，并遍历地打印出来。
 function getLotteries (){
-	var userName = {};
-	var lotteryName = {};
-	var target = {};
-	/*
+	
 	$.ajax({
   			url:"API/lotteryname.php",
   			asyn:false,
@@ -54,17 +44,18 @@ function getLotteries (){
   			datatype:'json',
   			cache: false,
   			success: function(result) {
-  			for (var j = 0; j <result.username.length; j++) {
-  				userName[j] = data.username[j];
-					lotteryName[j] = data.lotteryname[j];
-					$("#checkContainer").append("<div class=checkBox id="+userName[j]+"><p>抽奖名："+lotteryName[j]+"</p><p>创建人："+userName[j]+"</p></div>");
-  			};
-  }
-  */
-
+  				console.log(result);
+  				$.each(result, function(idx, obj){
+  					$(".checkContainer").append("<div class=checkBox id="+obj.username+"><p>抽奖名："+obj.lotteryname+"</p><p>创建人："+obj.username+"</p></div>");
+  				})
+  			},
+  			erorr: function() {
+  				$(".checkContainer").append("<div class=checkBox><p>服务器正忙，读取错误。</p></div>");
+  			}
+  });
 }
 
-
+//欢迎动画，测试时节省时间可去掉
 function welcome(canvas, context, VISION_HEIGHT){
 	$("#headBox").css('padding-top', VISION_HEIGHT);
 	setTimeout(function (){
@@ -85,14 +76,6 @@ function welcome(canvas, context, VISION_HEIGHT){
 		$("#headBox").append(text1);
 		$("h1:first").addClass("welcomeWord animated fadeIn headFont");
 	},3000);
-	/*
-	function welcomeIn (){
-		$("#welcomeWords1").remove();
-		context.clearRect(0,0,canvas.width,canvas.height);
-		$("#headBox").append(text1);
-		$("h1:first").addClass("welcomeWord animated fadeIn headFont");
-	}
-	*/
 	setTimeout(function (){
 		$("#welcome").remove();
 		$(".welcomeWord").fadeOut(function(){
@@ -101,34 +84,35 @@ function welcome(canvas, context, VISION_HEIGHT){
 	},5000);
 }
 
+//某抽奖点击事件，通过唯一id传递到href，唯一标识某抽奖
 function drawClick() {
 	var thisUserName = this.id;
 	var lotteryID = 0;
 	var url = "draw.html?lotteryID=";	
 	$(".checkBox").click(function(){
-	/*	$.ajax({ 
-  			url:"",
+		$.ajax({ 
+  			url:"API/checkAuthority",
   			asyn:false,
   			type:"POST",
   			data: thisUserName,
   			datatype:'json',
   			cache: false,
-  			success: function(data) {
-	  			if (data.result=="no authority") {
-						
-	  			};
+  			success: function(result) {
+  				console.log(result);
+  				var obj = JSON.parse(result);
+	  			if (obj.result==1) {
+						url = url+lotteryID;
+						window.location.href = url;
+	  			}
+	  			else {
+	  				$(".myModal").fadeIn();
+						$(".myAlert").fadeIn();
+						$("#confirmForAlert").click(function(){
+							$(".myModal").fadeOut();
+							$(".myAlert").fadeOut();
+						});
+	  			}
   			}
-  	})
-*/
-		//权限无
-		$(".myModal").fadeIn();
-		$(".myAlert").fadeIn();
-		$("#confirmForAlert").click(function(){
-			$(".myModal").fadeOut();
-			$(".myAlert").fadeOut();
-		});
-		//权限有
-		url = url+lotteryID;
-		window.location.href = url;
-	})
+  	});
+	});
 }

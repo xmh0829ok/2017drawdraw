@@ -28,7 +28,8 @@
         
         $if = "未发放";
         $type = "网薪";
-        $stmt = $DBH->prepare("SELECT student, award from {$creator} WHERE if_wx = ? AND type = ?");
+        $tablename = "yiban".$creator;
+        $stmt = $DBH->prepare("SELECT student, award from {$tablename} WHERE if_wx = ? AND type = ?");
         $stmt->execute([$if ,$type]);
 
         while($res = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -57,7 +58,7 @@
             }
 
             $if = "已发放";
-            $stmt2 = $DBH->prepare("UPDATE {$creator} set if_wx = ? WHERE student = ? ");//更改网薪状态
+            $stmt2 = $DBH->prepare("UPDATE {$tablename} set if_wx = ? WHERE student = ? ");//更改网薪状态
             $stmt2->execute([$if, $res['student']]);
 
         }

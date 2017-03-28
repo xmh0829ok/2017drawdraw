@@ -15,30 +15,32 @@ $(document).ready(function(){
 var flag = false;
 var number;
 
-function letgo() {
-		//检查合法性
-		number = parseInt(Math.random()*10);
-		//产生随机数，此处可交给后端
-
-		var num = [0, -65, -130,-195, -260, -325, -390, -455, -520, -585][number];
-
-		$(".drawBar").animate({"top":-1300},400,"linear", function(){
-				$(this).css("top",0).animate({"top":-650},400,"linear",function(){
-					$(this).css("top",0).animate({"top":-650},400,"linear");
-					$(this).css("top",0).animate({"top":num},1800,"linear");
-				});
-				
-		});
-/*
+function letgo() {	
 		$.ajax({
   			url:"API/run.php",
   			asyn:false,
-  			type:"GET",
+  			type:"POST",
   			data:number,
   			datatype:'json',
-  			cache: false,		
-  	};
-  	*/
+  			cache: false,
+  			success: function() {
+  				number = parseInt(Math.random()*10);
+					//产生随机数
+
+					var num = [0, -65, -130,-195, -260, -325, -390, -455, -520, -585][number];
+
+					$(".drawBar").animate({"top":-1300},400,"linear", function(){
+							$(this).css("top",0).animate({"top":-650},400,"linear",function(){
+								$(this).css("top",0).animate({"top":-650},400,"linear");
+								$(this).css("top",0).animate({"top":num},1800,"linear");
+							});
+					});
+  			},
+  			error: function() {
+  				alert("抽奖失败，服务器正忙。请重新尝试。")
+  			}
+  	});
+  	
 }
 function reset() {
 		$(".drawBar").css({"top":0});
@@ -46,36 +48,49 @@ function reset() {
 
 function getAwards (){
 	var userName = window.location.href.split("=")[1];
-	var award = new Array();
+	var award = new Array("默认1","默认2","默认3","默认4","默认5","默认6","默认7","默认8","默认9","默认10");
 	var type = new Array();
 	var awardShown = new Array();
 	var info = $(".intro");
 	for (var i = 1; i <=10; i++) {
 		awardShown[i-1] = $("#award"+i);
 	};
-	/*
-	$.ajax({ //只有每个奖项都填写时，才将数据发送给后台
+	$.ajax({ //从后台获得奖项
   			url:"API/getaward.php",
   			asyn:false,
   			type:"GET",
-  			data:userName;
+  			data:userName,
   			datatype:'json',
   			cache: false,
-  			success: function(data) {
-  			for (var j = 0; j <data.length; j++) {
-  				award[j] = data[j];
-  				type[j] = data[j];
-  	};
-  }
-  */
-  awardd = new Array("网薪1", "网薪2", "网薪3", "网薪4", "网薪5", "网薪6", "网薪7", "网薪8", "网薪9", "网薪10");
-  for (var k = 0; k < 10; k++) {
-  	awardShown[k].append("<p>"+awardd[k]+"</p>");
-  	info.append("<p>"+awardd[k]+"</p>");
-  };
-
+  			success: function(result) {
+  				console.log(result);
+  				award[0]=result.award1;
+  				award[1]=result.award2;
+  				award[2]=result.award3;
+  				award[3]=result.award4;
+  				award[4]=result.award5;
+  				award[5]=result.award6;
+  				award[6]=result.award7;
+  				award[7]=result.award8;
+  				award[8]=result.award9;
+  				award[9]=result.award10;
+  				for (var i = 0; i <10; i++) {
+  					awardShown[i].append("<p>"+award[i]+"</p>");
+  					info.append("<p>"+award[i]+"</p>");
+  				}
+  			},
+  			error: function(){
+  				for (var i = 0; i <10; i++) {
+				  	awardShown[i].append("<p>"+award[i]+"</p>");
+				  	info.append("<p>"+award[i]+"</p>");
+				  }
+				  $("#confirmForAlert").before("<p id='tempInform'>服务器正忙，加载出现错误，请刷新重试。</p>");
+				 	$(".myModal").fadeIn();
+				 	$(".myAlert").fadeIn();
+  			}
+  });
+  
 }
-
 function drawClickActions (myModal, myConfirm, confirmForConfirm, confirmForAlert, myAlert){
 		$("#buttonX").click(function(){
 		if (!flag) {
@@ -111,30 +126,4 @@ function drawClickActions (myModal, myConfirm, confirmForConfirm, confirmForAler
 		}
 	});
 }
-
-function checkIfCreator() {
-	/*
-	$.ajax({ 
-  			url:"API/checkcreate.php",
-  			asyn:false,
-  			type:"GET",
-  			datatype:'json',
-  			cache: false,
-  			success: function(result) {
-	  			if (result) {
-						$(".checkContainer").prepend("<button class="confirmButton" style="width:100px;margin-top:20px" href = "create.php">管理抽奖
-						</button>")
-	  			};
-	  			};
-  			}
-  })
-*/
-  var tempHref = "create.php";
-  var className = "confirmButton";
-	var result = 1;
-	if (result) {
-		$(".checkContainer").prepend("<button class="+className+" href = "+tempHref+" style=width:100px;margin-top:20px;>管理抽奖</button>");
-	}
-}
-
 

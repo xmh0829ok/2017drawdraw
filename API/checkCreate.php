@@ -12,6 +12,8 @@
     }
     
     include_once "db_config.php";
+    
+    $username = $_SESSION['usrid'];
 
     try {
         $DBH = new PDO("mysql:host=$db_host;dbname=$db_database;", $db_user, $db_password,
@@ -21,13 +23,23 @@
         die();
     }
 
-    if ($_SERVER['REQUEST_METHOD']=="GET") {
+    try {
+        $DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $creator = $_GET['username'];
-        foreach($DBH->query("SELECT realname, lotteryname, type1, award1, type2, award2, type3, award3, type4, award4, type5, award5, type6, award6, type7, award7, type8, award8, type9, award9, type10, award10 FROM award WHERE username = {$creator}", PDO::FETCH_NAMED) as $result) {
-            print(json_encode($result, JSON_UNESCAPED_UNICODE));
+        $stmt = $DBH->prepare("SELECT * from users WHERE username = ? ;");
+        $stmt->execute([$_SESSION['usrid']]);
+
+        if ($stmt->rowCount() > 0){
+        	print('{"result":"1"}');
+            die();
+        }else{
+            print('{"result":"0"}');
+            die();
         }
+        
+    } catch (PDOException $e) {
+        print('{"result":"Database Error"}');
         die();
-    }
+    }    
 
 ?>

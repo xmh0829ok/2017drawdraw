@@ -40,20 +40,51 @@ require("classes/yb-globals.inc.php");
 			<ul id="nav-mobile" class="side-nav orange">
 				<li><a class="navfont white-text" href="create.php">创建抽奖</a></li>
 				<li><a class="navfont white-text" href="manage.php">管理抽奖</a></li>
-				<li><a class="navfont white-text" href="">参加抽奖</a></li>
+				<li><a class="navfont white-text" href="index.php">参加抽奖</a></li>
 			</ul>
 		</div>
 	</nav>
-	<div class="container z-depth-1 maincont2">
-		<div class="wx">
-			我的当前网薪：<?php echo $wx; ?>;
-		</div>
+		
+
 		<div class="optionbox">
-			<div class="col s10">
+			<div class="wx">
+				<p>我的当前网薪：<?php echo $wx; ?>;</p>
+			</div>
+		  <div class="input-field col s8">
+		  <form>
+		    <div class="row">
+		    	<p>选择面向院系</p>
+					<select multiple name="range">
+					  <option>全校范围</option>
+					  <option>信息与通信工程学院</option>
+					  <option>电子工程学院</option>
+					  <option>计算机学院</option>
+					  <option>自动化学院</option>
+					  <option>软件学院</option>
+					  <option>现代邮政学院</option>
+					  <option>网络空间安全学院</option>
+					  <option>光电信息学院</option>
+					  <option>理学院</option>
+					  <option>经济管理学院</option>
+					  <option>公共管理学院</option>
+					  <option>人文学院</option>
+					  <option>马克思主义学院</option>
+					  <option>国际学院</option>
+					  <option>网络教育学院</option>
+					  <option>继续教育学院</option>
+					  <option>民族教育学院</option>
+					  <option>网络技术研究院</option>
+					  <option>信息光子学与光通信研究院</option>
+					  <option>叶培大学院</option>
+   				</select>	   			
+	   		</div>
+	   		</form>
+  		</div>
+			<div class="col s8">
 				<p>设置奖项1</p>
 		    <form action="#">
 		    	<p>
-		    		<input name="group1" type="radio" id="award11" value="1">
+		    		<input name="group1"  type="radio" id="award11" value="1">
 		    		<label for="award11">网薪</label>
 		    	</p>
 		    	<div class="row">
@@ -261,24 +292,13 @@ require("classes/yb-globals.inc.php");
        		<input placeholder="输入抽奖名称" id="lotteryName" type="text" class="validate">
        		</div>
 		    </form>
-		    <form action="#">
-		    	<div class="input-field col s12">
-		    		<div class="row">
-					    <select multiple>
-					      <option value="1">选项 1</option>
-					      <option value="2">选项 2</option>
-					      <option value="3">选项 3</option>
-   						</select>
-	   				 	<label>Materialize 下拉列表</label>
-	   				</div>
-  				</div>
-		    </form>
+
 		    <a class="waves-effect waves-light btn orange darken-1" id="makedraw">创建抽奖</a>
 		  </div>
 		</div>
 		<div class="mymodal">
 			
 		</div>
-	</div>
+
 </body>
 </html>

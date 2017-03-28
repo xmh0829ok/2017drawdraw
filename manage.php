@@ -28,9 +28,9 @@ require("classes/yb-globals.inc.php");
 			<a href="#" data-activates="nav-mobile" class="button-collapse"><img id="logo" src="img/menu.png"></a>
 			<a href="" class="brand-logo center">北邮易抽奖</a>
 			<ul id="nav-mobile" class="side-nav orange">
-				<li><a class="navfont white-text" href="create.html">创建抽奖</a></li>
-				<li><a class="navfont white-text" href="manage.html">管理抽奖</a></li>
-				<li><a class="navfont white-text" href="">参加抽奖</a></li>
+				<li><a class="navfont white-text" href="create.php">创建抽奖</a></li>
+				<li><a class="navfont white-text" href="manage.php">管理抽奖</a></li>
+				<li><a class="navfont white-text" href="index.php">参加抽奖</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -51,28 +51,16 @@ require("classes/yb-globals.inc.php");
 				<p>抽奖状态：开启中</p>
 			</div>
 			<div class="functionbox center">
-				<a class="waves-effect waves-light btn orange darken-1" id="change">修改抽奖</a>
-				<a class="waves-effect waves-light btn orange darken-1" id="pause">暂停抽奖</a>
-				<a class="waves-effect waves-light btn orange darken-1" id="check" style="margin-top:10px;">查看名单</a>
+				<a class="waves-effect waves-light btn orange darken-1" id="check">查看名单</a>
+				<a class="waves-effect waves-light btn orange darken-1" id="change" href="create.php">修改抽奖</a>
+				<a class="waves-effect waves-light btn orange darken-1" id="pause" style="margin-top:10px;">暂停抽奖</a>
 				<a class="waves-effect waves-light btn orange darken-1" id="share" style="margin-top:10px;">分享抽奖</a>
 			</div>
 		</div>
 	</div>
 	<div class="mymodal" id="checkmodal">
 		<div class="container z-depth-1 checkbox">
-			<div class="row luckygroup">
-				<div class="col s6">
-					<p class="luckyone">中奖用户：</p>
-					<a class="luckyone">xxx</a>
-				</div>
-				<div class="col s6">
-					<p class="luckyone">奖项：网薪</p>
-				</div>
-				<div class="col s12">
-					<p class="luckyone">中奖时间：</p>
-				</div>
-			</div>
-			<a class="waves-effect waves-light btn orange darken-1" id="pullout" style="margin-top:10px;">导出名单</a>
+			<a class="waves-effect waves-light btn orange darken-1" id="pullout" style="margin-top:10px;">一键发放</a>
 		</div>
 	</div>
 </body>

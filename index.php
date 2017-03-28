@@ -78,34 +78,27 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
-	<title>北邮易抽抽</title>
+	<title>北邮易乐透</title>
 	<link href="css/materialize.min.css" rel="stylesheet" type="text/css">
-	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<link href="css/draw.css" rel="stylesheet" type="text/css">
+	<link href="css/animate.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/materialize.min.js"></script>
-	<script type="text/javascript" src="js/myjs.js"></script>
+	<script type="text/javascript" src="js/draw.js"></script>
+	<script type="text/javascript" src="js/welcome.js"></script>
 </head>
-<body>
-	<nav>
-		<div class="orange darken-1 nav-wrapper">
-			<a href="#" data-activates="nav-mobile" class="button-collapse"><img id="logo" src="img/menu.png"></a>
-			<a href="" class="brand-logo center">北邮易抽奖</a>
-			<ul id="nav-mobile" class="side-nav orange">
-				<li><a class="navfont white-text" href="create.php">创建抽奖</a></li>
-				<li><a class="navfont white-text" href="manage.php">管理抽奖</a></li>
-				<li><a class="navfont white-text" href="draw.php">参加抽奖</a></li>
-			</ul>
-		</div>
-	</nav>
-	<div class="container z-depth-1 maincont">
-		<div class="container instrucont">
-			<h4 class="center-align">欢迎使用北邮易抽奖</h4>
-			<h5 class="center-align">在这里</h5>
-			<h5 class="center-align">你可以定制属于自己的抽奖</h5>
-			<h5 class="center-align">巴拉巴拉的介绍文本我遍不下去了</h5>
-			<div class="btnbox">
-				<a class="waves-effect waves-light btn-large orange darken-1 btncreate"><h5>创建抽奖</h5></a>
-			</div>
+<body id="welcomePage">
+	<div id="headBox">
+		<h1 class="welcomeWord animated bounceInDown headFont" id="welcomeWords1">
+			欢迎来到澳门赌场
+		</h1>
+	</div>
+	<canvas id="welcome"></canvas>
+	<div class="checkContainer">
+	</div>
+	<div class="myModal">
+		<div class="myAlert">
+			<p>对不起，您没有此抽奖的参加权限</p>
+			<button class="confirmButton" id="confirmForAlert">确认</button>
 		</div>
 	</div>
 </body>

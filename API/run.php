@@ -13,11 +13,22 @@
     
     include_once "db_config.php";
     
-    $username = $_SESSION['usrid'];//当前抽奖人
-    $creator = $_POST['creator'];//抽奖创建者
+    $yibanid = $_SESSION['usrid'];//当前抽奖人
+    $creator = $_POST['username'];//抽奖创建者
     $number = $_POST['number'];//奖项编号
     $this_type = "type".$number;
     $this_award = "award".$number;
+
+
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, "https://openapi.yiban.cn/user/verify_me?access_token=".$_SESSION['token']);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //不验证证书
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $data = curl_exec($curl);//data是返回的数组
+    curl_close($curl);
+
+    $realname = $data['info']['yb_realname'];
 
     try {
         $DBH = new PDO("mysql:host=$db_host;dbname=$db_database;", $db_user, $db_password,
@@ -46,8 +57,9 @@
         }
         
         $if = "未发放";
-        $stmt = $DBH->prepare("INSERT into {$creator} (student, type, award, if_wx) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$username, $type, $award, $if]);
+        $tablename = "yiban".$creator;
+        $stmt = $DBH->prepare("INSERT into {$tablename} (student, type, award, if_wx) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$realname, $type, $award, $if]);
 
         $DBH->commit();
         
