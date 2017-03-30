@@ -25,9 +25,13 @@
     }
 
     if ($_SERVER['REQUEST_METHOD']=="GET") {
-        foreach($DBH->query("SELECT username, realname, lotteryname FROM award ", PDO::FETCH_NAMED) as $result) {
-            print(json_encode($result, JSON_UNESCAPED_UNICODE));
+
+        $results = array();
+        foreach($DBH->query("SELECT username, realname, lotteryname, state FROM award ", PDO::FETCH_NAMED) as $result) {
+            $results[] = $result;
         }
+        print(json_encode($results, JSON_UNESCAPED_UNICODE));
+
         die();
     }
 

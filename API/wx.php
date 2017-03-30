@@ -27,14 +27,16 @@
         $DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $if = "未发放";
-        $type = "网薪";
+        $type = 1;
         $tablename = "yiban".$creator;
-        $stmt = $DBH->prepare("SELECT student, award from {$tablename} WHERE if_wx = ? AND type = ?");
+        $stmt = $DBH->prepare("SELECT student, award, studentyibanID from {$tablename} WHERE if_wx = ? AND type = ?");
         $stmt->execute([$if ,$type]);
 
         while($res = $stmt->fetch(PDO::FETCH_ASSOC)){
 
-            $wx = $res['award'];
+            preg_match_all('/\d+/',$res['award'],$wx);
+            $wx = join('',$wx[0]);
+
             $curl = curl_init();//抽奖创建者支付网薪
             curl_setopt($curl, CURLOPT_URL, "https://openapi.yiban.cn/pay/yb_wx?access_token=".$_SESSION['token']."&pay=".$wx);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //不验证证书
@@ -42,11 +44,13 @@
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
             $data = curl_exec($curl);//data是返回的数组
             curl_close($curl);
+            $hhh = json_decode($data,true);
+           // echo $hhh['status'];
 
-            if(strcmp("success", $data['status'])==0){
+            if(strcmp("success", $hhh['status'])==0){
                 //支付给获奖者
 
-                $usr = $res['student'];
+                $usr = $res['studentyibanID'];
                 $curl = curl_init();
                 curl_setopt($curl, CURLOPT_URL, "https://openapi.yiban.cn/school/award_wx?access_token=".$_SESSION['token']."&yb_userid=".$usr."&award=".$wx);
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //不验证证书
@@ -55,12 +59,16 @@
                 $data2 = curl_exec($curl);
                 curl_close($curl);
 
+                $if = "已发放";
+                $stmt2 = $DBH->prepare("UPDATE {$tablename} set if_wx = ? WHERE student = ? ");//更改网薪状态
+                $stmt2->execute([$if, $res['student']]);
+                print('{"result":"success"}');
+                die();
+
+            }else {
+                print('{"result":"Error"}');
+                die();
             }
-
-            $if = "已发放";
-            $stmt2 = $DBH->prepare("UPDATE {$tablename} set if_wx = ? WHERE student = ? ");//更改网薪状态
-            $stmt2->execute([$if, $res['student']]);
-
         }
 
     } catch (PDOException $e) {

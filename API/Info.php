@@ -24,9 +24,20 @@
     }
 
     if ($_SERVER['REQUEST_METHOD']=="GET") {
-        foreach($DBH->query("SELECT student, type, award, if_wx FROM {$tablename} ", PDO::FETCH_NAMED) as $result) {
-            print(json_encode($result, JSON_UNESCAPED_UNICODE));
+        $results = array();
+        foreach($DBH->query("SELECT student, stuentyibanID, type, award, if_wx FROM {$tablename} ", PDO::FETCH_ASSOC) as $result) {
+            $results[] = $result;
         }
+        print(json_encode($results, JSON_UNESCAPED_UNICODE));
+        die();
+    }else if ($_SERVER['REQUEST_METHOD']=="POST") {
+        $creator = $_POST['userName'];
+        $tablename = "yiban".$creator;
+        $results = array();
+        foreach($DBH->query("SELECT student, type, award FROM {$tablename} ", PDO::FETCH_ASSOC) as $result) {
+            $results[] = $result;
+        }
+        print(json_encode($results, JSON_UNESCAPED_UNICODE));
         die();
     }
 

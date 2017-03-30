@@ -23,10 +23,20 @@
 
     if ($_SERVER['REQUEST_METHOD']=="GET") {
 
-        $creator = $_GET['username'];
-        foreach($DBH->query("SELECT realname, lotteryname, type1, award1, type2, award2, type3, award3, type4, award4, type5, award5, type6, award6, type7, award7, type8, award8, type9, award9, type10, award10 FROM award WHERE username = {$creator}", PDO::FETCH_NAMED) as $result) {
-            print(json_encode($result, JSON_UNESCAPED_UNICODE));
+        $DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        if(isset($_GET['userName'])){
+            $creator = $_GET['userName'];
+        }else{
+            $creator = $_SESSION['usrid'];
         }
+        
+
+        $stmt = $DBH->prepare("SELECT state, realname, lotteryname, type1, award1, type2, award2, type3, award3, type4, award4, type5, award5, type6, award6, type7, award7, type8, award8, type9, award9, type10, award10 FROM award WHERE username = ? ;");
+        $stmt->execute([$creator]);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        print(json_encode($result, JSON_UNESCAPED_UNICODE));
+
         die();
     }
 

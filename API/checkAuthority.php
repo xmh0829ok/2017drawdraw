@@ -26,7 +26,7 @@
     try {
         $DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
-        $creator = $_GET['thisUserName'];
+        $creator = $_POST['thisUserName'];
         $stmt = $DBH->prepare("SELECT authority from award WHERE username = ? ;");
         $stmt->execute([$creator]);
 
@@ -34,7 +34,7 @@
         foreach($allrows as $row){
             $authority = $row['authority'];
         }
-        if(strpos($authority,"全校范围")==false){
+        if(strcmp($authority,"全校范围")!=0){
             $curl = curl_init();
             curl_setopt($curl, CURLOPT_URL, "https://openapi.yiban.cn/user/verify_me?access_token=".$_SESSION['token']);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //不验证证书
@@ -42,17 +42,19 @@
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
             $data = curl_exec($curl);//data是返回的数组
             curl_close($curl);
-
-                $studentid = $data['info']['yb_studentid'];
+            $abc = json_decode($data,true);
+            $studentid = $abc['info']['yb_studentid'];
 
             $stmt = $DBH->prepare("SELECT academy from studentInfo WHERE BUPT_studentid = ? ;");
             $stmt->execute([$studentid]);
+            $ress = $stmt->fetch(PDO::FETCH_ASSOC);
+            $academy = $ress['academy'];
 
-            if(strpos($authority,$academy)!==false){
-                print('{"result":"1"}');
+            if(strpos($authority,$academy)==FALSE){
+                print('{"result":"0"}');
                 die();
             }else{
-                print('{"result":"0"}');
+                print('{"result":"1"}');
                 die();
             }
 

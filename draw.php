@@ -14,7 +14,7 @@ require("classes/yb-globals.inc.php");
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
-	<title>北邮易乐透</title>
+	<title>北邮易抽奖</title>
 	<link href="css/materialize.min.css" rel="stylesheet" type="text/css">
 	<link href="css/draw.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
@@ -87,7 +87,7 @@ require("classes/yb-globals.inc.php");
 	</div>
 	<div class="myModal">
 		<div class="myConfirm">
-			<p>根据管理员的设置，你将支付50网薪获得一次抽奖机会</p>
+			<p>根据管理员的设置，你将支付5网薪获得一次抽奖机会</p>
 			<button class="confirmButton" id="confirmForConfirm">确认</button>
 			<button class="cancelButton" id="cancel">取消</button>
 		</div>
@@ -97,9 +97,11 @@ require("classes/yb-globals.inc.php");
 	</div>
 	<h1 class="introHead">抽奖介绍</h1>
 	<div class="intro">
-		<p>本次抽奖由XXX举办，面向XXX，奖品如下：</p>
 	</div>
-	<button class="confirmButton" id="checkOut">得奖记录</button>
-	<button class="confirmButton" id="return">返回</button>
+	<div class="buttonGroup">
+		<button class="confirmButton" id="checkOut">得奖记录</button>
+		<button class="confirmButton" id="return">返回</button>
+	</div>
+	
 </body>
 </html>

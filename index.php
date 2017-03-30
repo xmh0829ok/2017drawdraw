@@ -78,12 +78,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
-	<title>北邮易乐透</title>
+	<title>北邮易抽奖</title>
 	<link href="css/materialize.min.css" rel="stylesheet" type="text/css">
 	<link href="css/draw.css" rel="stylesheet" type="text/css">
 	<link href="css/animate.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/draw.js"></script>
 	<script type="text/javascript" src="js/welcome.js"></script>
 </head>
 <body id="welcomePage">

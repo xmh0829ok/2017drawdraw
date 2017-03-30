@@ -2,6 +2,8 @@
      /**
 	 * 包含SDK
 	 */
+   // header('Content-type:text/json');
+
 	require("../classes/yb-globals.inc.php");
     
     session_start();
@@ -14,8 +16,10 @@
     include_once "db_config.php";
     
     $yibanid = $_SESSION['usrid'];//当前抽奖人
-    $creator = $_POST['username'];//抽奖创建者
-    $number = $_POST['number'];//奖项编号
+    $creator = $_POST['userName'];//抽奖创建者
+    //奖项编号
+    //生成随机数
+    $number = mt_rand(0,9);
     $this_type = "type".$number;
     $this_award = "award".$number;
 
@@ -27,8 +31,9 @@
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     $data = curl_exec($curl);//data是返回的数组
     curl_close($curl);
+    $abc = json_decode($data,true);
 
-    $realname = $data['info']['yb_realname'];
+    $realname = $abc['info']['yb_realname'];
 
     try {
         $DBH = new PDO("mysql:host=$db_host;dbname=$db_database;", $db_user, $db_password,
@@ -53,17 +58,21 @@
             $type = "网薪";
         }
         else{//自定义
-            $type = "自定义"；
+            $type = "自定义";
         }
         
         $if = "未发放";
         $tablename = "yiban".$creator;
-        $stmt = $DBH->prepare("INSERT into {$tablename} (student, type, award, if_wx) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$realname, $type, $award, $if]);
+        $stmt = $DBH->prepare("INSERT into {$tablename} (student, stuentyibanID, type, award, if_wx) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$realname, $yibanid, $type, $award, $if]);
 
         $DBH->commit();
-        
+        //$str = array("randnumber"=>7);
+        //print(json_encode($str, JSON_UNESCAPED_UNICODE));
+        print('{"randnumber":"'.$number.'"}');
+
     } catch (PDOException $e) {
+        print_r($e);
         print('{"result":"Database Error"}');
         die();
     }

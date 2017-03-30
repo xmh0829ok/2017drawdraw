@@ -13,9 +13,39 @@ $(document).ready(function(){
 
 	getLotteries();//获得lotteries并显示 
 
-	drawClick();//点击抽奖，确认权限并修改href
 
-})
+	$(".checkContainer").on("click", ".checkBox", function(){
+		var thisUserName = this.id;
+		//alert(thisUserName);
+		console.log(thisUserName);
+		var url = "draw.php?lotteryID=";
+		$.ajax({ 
+  			url:"API/checkAuthority.php",
+  			asyn:false,
+  			type:"POST",
+  			data: {thisUserName:thisUserName},
+  			datatype:'json',
+  			cache: false,
+  			success: function(result) {
+  				var obj = $.parseJSON(result);
+	  			if (obj.result==1) {
+					url = url+thisUserName;
+					window.location.href = url;
+	  			}
+	  			else {
+	  				$(".myModal").fadeIn();
+					$(".myAlert").fadeIn();
+					$("#confirmForAlert").click(function(){
+						$(".myModal").fadeOut();
+						$(".myAlert").fadeOut();
+					});
+	  			}
+	  			
+  			}
+  		});
+	});
+
+});
 
 //检查是否有创建权限，若有则创建一个按钮
 function checkIfCreator() {
@@ -26,12 +56,12 @@ function checkIfCreator() {
   	datatype:'json',
   	cache: false,
   	success: function(result) {
-  	//	var obj = JSON.parse(result);
-	  	if (result.result==1) {
-				$(".checkContainer").prepend("<button class='confirmButton' style='width:100px;margin-top:20px' href = 'manage.php'>管理抽奖</button>");
+  		var obj = JSON.parse(result);
+	  	if (obj.result==1) {
+				$(".checkContainer").prepend("<a class='confirmButton' style='width:100px;margin-top:20px' href = 'manage.php'>管理抽奖</a><a class='confirmButton' style='width:100px;margin-top:20px' href = 'create.php'>创建抽奖</a>");
 	  	}
   	}
-  })
+  });
 }
 
 //获得当前所有被创建的抽奖，并遍历地打印出来。
@@ -41,13 +71,15 @@ function getLotteries (){
   			url:"API/lotteryname.php",
   			asyn:false,
   			type:"GET",
-  			datatype:'json',
+  			datatype:'json',	
   			cache: false,
   			success: function(result) {
   				console.log(result);
-  				$.each(result, function(idx, obj){
-  					$(".checkContainer").append("<div class=checkBox id="+obj.username+"><p>抽奖名："+obj.lotteryname+"</p><p>创建人："+obj.username+"</p></div>");
-  				})
+  				$.each($.parseJSON(result), function(idx, obj){
+  					if(obj.state == "open"){
+  						$(".checkContainer").append("<div class=checkBox id="+obj.username+"><p>抽奖名："+obj.lotteryname+"</p><p>创建人："+obj.realname+"</p></div>");
+  					}
+  				});
   			},
   			erorr: function() {
   				$(".checkContainer").append("<div class=checkBox><p>服务器正忙，读取错误。</p></div>");
@@ -84,35 +116,3 @@ function welcome(canvas, context, VISION_HEIGHT){
 	},5000);
 }
 
-//某抽奖点击事件，通过唯一id传递到href，唯一标识某抽奖
-function drawClick() {
-	var thisUserName = this.id;
-	var lotteryID = 0;
-	var url = "draw.html?lotteryID=";	
-	$(".checkBox").click(function(){
-		$.ajax({ 
-  			url:"API/checkAuthority",
-  			asyn:false,
-  			type:"POST",
-  			data: thisUserName,
-  			datatype:'json',
-  			cache: false,
-  			success: function(result) {
-  				console.log(result);
-  				var obj = JSON.parse(result);
-	  			if (obj.result==1) {
-						url = url+lotteryID;
-						window.location.href = url;
-	  			}
-	  			else {
-	  				$(".myModal").fadeIn();
-						$(".myAlert").fadeIn();
-						$("#confirmForAlert").click(function(){
-							$(".myModal").fadeOut();
-							$(".myAlert").fadeOut();
-						});
-	  			}
-  			}
-  	});
-	});
-}

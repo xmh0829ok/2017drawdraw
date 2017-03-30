@@ -6,17 +6,17 @@ require("classes/yb-globals.inc.php");
     if(!isset($_SESSION['token'])){
         exit('illegal access!');
      }
-	 	$curl = curl_init();
+	 $curl = curl_init();
     //设置抓取的url
     curl_setopt($curl, CURLOPT_URL, 'https://openapi.yiban.cn/user/me?access_token='.$_SESSION['token']);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //不验证证书
-		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //不验证证书
+	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     $data = curl_exec($curl);
     curl_close($curl);
     $res = json_decode($data,true);
 	
-		$wx = $res['info']['yb_money'];  //我的当前网薪，调用接口来获取.
+	$wx = $res['info']['yb_money'];  //我的当前网薪，调用接口来获取.
 
 ?>
 
@@ -25,7 +25,7 @@ require("classes/yb-globals.inc.php");
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
-	<title>北邮易抽抽</title>
+	<title>北邮易抽奖</title>
 	<link href="css/materialize.min.css" rel="stylesheet" type="text/css">
 	<link href="css/style.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
@@ -54,7 +54,7 @@ require("classes/yb-globals.inc.php");
 		  <form>
 		    <div class="row">
 		    	<p>选择面向院系</p>
-					<select multiple name="range">
+					<select multiple id="range">
 					  <option>全校范围</option>
 					  <option>信息与通信工程学院</option>
 					  <option>电子工程学院</option>

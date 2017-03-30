@@ -284,7 +284,6 @@ body {
 	left: 50%;
 	display: none;
 
-	height: 140px;
 	width: 300px;
 	margin-left: -150px;
 	background-color: rgb(243,241,218);
@@ -299,6 +298,7 @@ body {
 }
 
 #checkOut {
+	z-index: 999;
 	position: absolute;
 	top: 8%;
 	right: 95px;
@@ -307,6 +307,7 @@ body {
 }
 
 #return {
+	z-index: 999;
 	position: absolute;
 	top: 8%;
 	right: 30px;
@@ -367,4 +368,8 @@ body {
 
 .checkBox p {
 	margin: 5px auto;
+}
+
+#cheOut {
+	cursor:pointer;
 }
